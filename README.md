@@ -21,6 +21,9 @@ The tag we are pulling in is `2.3.0`. To update the version, change the `Dockerf
 cd overlay/sample
 gradlew tasks
 
+# Build Grouper
+gradlew buildGrouper
+
 # Stop the container
 gradlew stopGrouper
 
@@ -30,7 +33,7 @@ gradlew removeGrouper
 # Build 
 gradlew clean build
 
-# Star Grouper
+# Start Grouper
 gradlew runGrouper
 ```
 
