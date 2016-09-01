@@ -38,4 +38,4 @@ Shorthand method may be:
 
 ```bash
 gradlew stopGrouper && gradlew clean build runGrouper
-``
+```
