@@ -9,7 +9,8 @@ The tag we are pulling in is `2.3.0`. To update the version, change the `Dockerf
 
 ## Development
 
-- Grouper development happens inside `overlay/sample`. You may create additional gradle projects inside the `overlay` directory.
+- Grouper development happens inside `overlay/sample`. You may create additional gradle projects inside the `overlay` directory. Remember
+ to add them to `settings.gradle`
 - Remote debugging is on by default. You may connect to port `8000` to step through the code.
 - You may use the `testCaseSetup.gsh` to bootstrap the Grouper environment with sample data, etc.
 - `log4j.properties` file is used to control Grouper's log messages.
