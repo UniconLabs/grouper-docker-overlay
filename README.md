@@ -7,6 +7,13 @@ This project demonstrates how a grouper deployment can be wrapped inside Docker 
 This is based on [Unicon's Grouper Docker Demo](https://hub.docker.com/r/unicon/grouper-demo/tags/). 
 The tag we are pulling in is `2.3.0`. To update the version, change the `Dockerfile` and the `gradle.properties`.
 
+## MySQL
+
+If you need to connect to the MySQL database:
+
+- URL is: `jdbc:mysql://localhost:3306`
+- Login as `root` with a blank password
+
 ## Development
 
 - Grouper development happens inside `overlay/sample`. You may create additional gradle projects inside the `overlay` directory. Remember
