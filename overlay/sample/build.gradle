@@ -1,0 +1,69 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile ("edu.internet2.middleware.grouper:grouper:$grouperVersion") {
+      transitive = false
+    }
+    compile "edu.internet2.middleware.grouper:subject:$grouperVersion"
+    compile 'org.slf4j:slf4j-api:1.6.2'
+
+    //Needed for hooks to compile
+    compile 'org.hibernate:hibernate-core:3.6.0.Final'
+}
+
+
+task copyDocker(type: Copy) {
+    from 'src/test/docker-compose/'
+    into 'build/docker-compose/'
+}
+
+task addLib(type: Copy) {
+    dependsOn jar
+
+    from 'build/libs/custom-hooks'
+    into 'build/docker-compose/grouper/libs/'
+}
+
+task buildGrouper(type:Exec) {
+    dependsOn copyDocker, addLib
+
+    doFirst {
+        logger.lifecycle("Building the initial images may take a long time. Have plenty of bandwidth.")
+    }
+
+    workingDir 'build/docker-compose'
+    commandLine 'docker-compose', 'build'
+}
+
+task runGrouper(type:Exec) {
+  dependsOn buildGrouper
+
+  workingDir 'build/docker-compose'
+  commandLine 'docker-compose', 'up', '-d'
+}
+
+task stopGrouper(type:Exec) {
+    workingDir 'build/docker-compose'
+    commandLine 'docker-compose', 'kill'
+}
+
+task removeGrouper(type:Exec) {
+    dependsOn stopGrouper
+
+    workingDir 'build/docker-compose'
+    commandLine 'docker-compose', 'rm', '-f'
+}
+
+task logs(type:Exec) {
+    workingDir 'build/docker-compose'
+    commandLine 'docker-compose', 'logs'
+}
+
+clean {
+    dependsOn removeGrouper
+}
+
