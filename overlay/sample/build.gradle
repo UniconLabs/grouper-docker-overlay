@@ -28,7 +28,7 @@ task addLib(type: Copy) {
     into 'build/docker-compose/grouper/libs/'
 }
 
-task buildGrouper(type:Exec) {
+task buildGrouper(type:Exec, group: "Grouper", description: "Build the initial grouper image") {
     dependsOn copyDocker, addLib
 
     doFirst {
@@ -39,26 +39,26 @@ task buildGrouper(type:Exec) {
     commandLine 'docker-compose', 'build'
 }
 
-task runGrouper(type:Exec) {
+task runGrouper(type:Exec, group: "Grouper", description: "Start the running grouper container") {
   dependsOn buildGrouper
 
   workingDir 'build/docker-compose'
   commandLine 'docker-compose', 'up', '-d'
 }
 
-task stopGrouper(type:Exec) {
+task stopGrouper(type:Exec, group: "Grouper", description: "Stop the running grouper container") {
     workingDir 'build/docker-compose'
     commandLine 'docker-compose', 'kill'
 }
 
-task removeGrouper(type:Exec) {
+task removeGrouper(type:Exec, group: "Grouper", description: "Remove the grouper container") {
     dependsOn stopGrouper
 
     workingDir 'build/docker-compose'
     commandLine 'docker-compose', 'rm', '-f'
 }
 
-task logs(type:Exec) {
+task logs(type:Exec, group: "Grouper", description: "Provide logs for the running grouper container") {
     workingDir 'build/docker-compose'
     commandLine 'docker-compose', 'logs'
 }
